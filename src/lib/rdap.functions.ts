@@ -22,18 +22,43 @@ export const checkDomain = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<RdapResult> => {
     const { domain } = data;
 
+    const tld = domain.split(".").pop();
+    const endpoints =
+      tld === "fr"
+        ? [`https://rdap.nic.fr/domain/${domain}`, `https://rdap.org/domain/${domain}`]
+        : [
+            `https://rdap.verisign.com/com/v1/domain/${domain}`,
+            `https://rdap.org/domain/${domain}`,
+          ];
+
     try {
-      const res = await fetch(`https://rdap.org/domain/${domain}`, {
-        headers: { Accept: "application/rdap+json" },
-      });
+      let res: Response | null = null;
+      for (const url of endpoints) {
+        try {
+          const attempt = await fetch(url, {
+            redirect: "follow",
+            headers: {
+              Accept: "application/rdap+json, application/json",
+              "User-Agent": "website.gg domain checker",
+            },
+          });
+          if (attempt.status === 404 || attempt.ok) {
+            res = attempt;
+            break;
+          }
+        } catch {
+          // try next endpoint
+        }
+      }
+
+      if (!res) {
+        return { domain, status: "unknown" };
+      }
 
       if (res.status === 404) {
         return { domain, status: "available" };
       }
 
-      if (!res.ok) {
-        return { domain, status: "unknown" };
-      }
 
       const body = (await res.json()) as {
         entities?: Array<{ roles?: string[]; vcardArray?: unknown }>;
