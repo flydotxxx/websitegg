@@ -12,9 +12,10 @@ const inputSchema = z.object({
 export type RdapResult = {
   domain: string;
   status: "available" | "taken" | "unknown";
-  registrar?: string;
-  creationDate?: string;
+  registrar?: string | undefined;
+  creationDate?: string | undefined;
 };
+
 
 export const checkDomain = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => inputSchema.parse(data))
