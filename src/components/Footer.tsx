@@ -1,4 +1,5 @@
 import { Globe2 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export default function Footer() {
   return (
@@ -10,18 +11,21 @@ export default function Footer() {
             <span className="text-gradient font-display text-lg font-bold">website.gg</span>
           </div>
           <nav className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-            <a href="#processus" className="hover:text-foreground">
+            <Link to="/" hash="processus" className="hover:text-foreground">
               Processus
-            </a>
-            <a href="#domaine" className="hover:text-foreground">
+            </Link>
+            <Link to="/design" className="hover:text-foreground">
+              Designs
+            </Link>
+            <Link to="/domain" className="hover:text-foreground">
               Domaine
-            </a>
-            <a href="#tarifs" className="hover:text-foreground">
+            </Link>
+            <Link to="/" hash="tarifs" className="hover:text-foreground">
               Tarifs
-            </a>
-            <a href="#faq" className="hover:text-foreground">
+            </Link>
+            <Link to="/" hash="faq" className="hover:text-foreground">
               FAQ
-            </a>
+            </Link>
             <a href="mailto:contact@website.gg" className="hover:text-foreground">
               Contact
             </a>
