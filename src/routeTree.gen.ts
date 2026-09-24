@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DesignRouteImport } from './routes/design'
+import { Route as DomainRouteImport } from './routes/domain'
+import { Route as ApiPublicSitePreviewRouteImport } from './routes/api/public/site-preview'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DesignRoute = DesignRouteImport.update({
+  id: '/design',
+  path: '/design',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DomainRoute = DomainRouteImport.update({
+  id: '/domain',
+  path: '/domain',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicSitePreviewRoute = ApiPublicSitePreviewRouteImport.update({
+  id: '/api/public/site-preview',
+  path: '/api/public/site-preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/design': typeof DesignRoute
+  '/domain': typeof DomainRoute
+  '/api/public/site-preview': typeof ApiPublicSitePreviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/design': typeof DesignRoute
+  '/domain': typeof DomainRoute
+  '/api/public/site-preview': typeof ApiPublicSitePreviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/design': typeof DesignRoute
+  '/domain': typeof DomainRoute
+  '/api/public/site-preview': typeof ApiPublicSitePreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/design' | '/domain' | '/api/public/site-preview'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/design' | '/domain' | '/api/public/site-preview'
+  id: '__root__' | '/' | '/design' | '/domain' | '/api/public/site-preview'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DesignRoute: typeof DesignRoute
+  DomainRoute: typeof DomainRoute
+  ApiPublicSitePreviewRoute: typeof ApiPublicSitePreviewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/design': {
+      id: '/design'
+      path: '/design'
+      fullPath: '/design'
+      preLoaderRoute: typeof DesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/domain': {
+      id: '/domain'
+      path: '/domain'
+      fullPath: '/domain'
+      preLoaderRoute: typeof DomainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/site-preview': {
+      id: '/api/public/site-preview'
+      path: '/api/public/site-preview'
+      fullPath: '/api/public/site-preview'
+      preLoaderRoute: typeof ApiPublicSitePreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DesignRoute: DesignRoute,
+  DomainRoute: DomainRoute,
+  ApiPublicSitePreviewRoute: ApiPublicSitePreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
