@@ -30,7 +30,7 @@ export default function Navbar() {
               <Link
                 key={`${l.to}-${l.hash ?? ""}`}
                 to={l.to}
-                hash={l.hash}
+                {...(l.hash ? { hash: l.hash } : {})}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {l.name}
@@ -62,7 +62,7 @@ export default function Navbar() {
               <Link
                 key={`${l.to}-${l.hash ?? ""}`}
                 to={l.to}
-                hash={l.hash}
+                {...(l.hash ? { hash: l.hash } : {})}
                 onClick={() => setOpen(false)}
                 className="text-sm font-medium text-muted-foreground hover:text-foreground"
               >

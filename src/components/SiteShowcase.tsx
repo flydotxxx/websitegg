@@ -43,7 +43,7 @@ const sites = [
 export default function SiteShowcase() {
   const [selected, setSelected] = useState(0);
   const [loading, setLoading] = useState(true);
-  const site = sites[selected];
+  const site = sites[selected] ?? sites[0];
 
   return (
     <section className="container mx-auto px-4 pb-20">
