@@ -14,6 +14,10 @@ export type RdapResult = {
   status: "available" | "taken" | "unknown";
   registrar?: string | undefined;
   creationDate?: string | undefined;
+  expirationDate?: string | undefined;
+  updatedDate?: string | undefined;
+  nameservers?: string[] | undefined;
+  statuses?: string[] | undefined;
 };
 
 
@@ -63,6 +67,8 @@ export const checkDomain = createServerFn({ method: "POST" })
       const body = (await res.json()) as {
         entities?: Array<{ roles?: string[]; vcardArray?: unknown }>;
         events?: Array<{ eventAction?: string; eventDate?: string }>;
+        nameservers?: Array<{ ldhName?: string }>;
+        status?: string[];
       };
 
       const registrarEntity = body.entities?.find((e) => e.roles?.includes("registrar"));
@@ -77,7 +83,27 @@ export const checkDomain = createServerFn({ method: "POST" })
         (e) => e.eventAction === "registration",
       )?.eventDate;
 
-      return { domain, status: "taken", registrar, creationDate };
+      const expirationDate = body.events?.find(
+        (e) => e.eventAction === "expiration",
+      )?.eventDate;
+      const updatedDate = body.events?.find(
+        (e) => e.eventAction === "last changed",
+      )?.eventDate;
+      const nameservers = body.nameservers
+        ?.map((nameserver) => nameserver.ldhName)
+        .filter((name): name is string => Boolean(name))
+        .slice(0, 4);
+
+      return {
+        domain,
+        status: "taken",
+        registrar,
+        creationDate,
+        expirationDate,
+        updatedDate,
+        nameservers,
+        statuses: body.status?.slice(0, 5),
+      };
     } catch {
       return { domain, status: "unknown" };
     }

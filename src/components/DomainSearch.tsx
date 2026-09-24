@@ -8,7 +8,22 @@ import { checkDomain, type RdapResult } from "@/lib/rdap.functions";
 
 const TLDS = ["fr", "com"] as const;
 
-export default function DomainSearch() {
+type DomainSearchProps = {
+  headingLevel?: "h1" | "h2";
+  showStep?: boolean;
+};
+
+const formatDate = (value: string) =>
+  new Date(value).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+export default function DomainSearch({
+  headingLevel = "h2",
+  showStep = true,
+}: DomainSearchProps) {
   const [name, setName] = useState("");
   const [tld, setTld] = useState<(typeof TLDS)[number]>("fr");
   const [error, setError] = useState<string | null>(null);
@@ -35,20 +50,21 @@ export default function DomainSearch() {
   };
 
   const result = mutation.data;
+  const Heading = headingLevel;
 
   return (
     <section id="domaine" className="relative py-24">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-sm font-semibold uppercase tracking-widest text-accent">
-            Étape 2
-          </span>
-          <h2 className="mt-3 text-3xl font-bold md:text-5xl">
+          {showStep && (
+            <span className="text-sm font-semibold uppercase text-accent">Étape 2</span>
+          )}
+          <Heading className={`${showStep ? "mt-3" : ""} text-3xl font-bold md:text-5xl`}>
             <span className="text-gradient">Votre nom de domaine</span>
-          </h2>
+          </Heading>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Vérifiez immédiatement si le nom que vous voulez est libre. Recherche effectuée auprès
-            des registres officiels (RDAP).
+            Vérifiez immédiatement si le nom que vous voulez est libre. La recherche RDAP interroge
+            les registres officiels et affiche les informations techniques publiques disponibles.
           </p>
         </div>
 
@@ -99,7 +115,7 @@ export default function DomainSearch() {
           )}
 
           {result && (
-            <div className="mt-6 rounded-xl border border-border bg-background/50 p-5">
+            <div className="mt-6 rounded-lg border border-border bg-background/50 p-5">
               {result.status === "available" && (
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
@@ -120,11 +136,55 @@ export default function DomainSearch() {
                     <p className="font-semibold">{result.domain} est déjà pris</p>
                     <p className="mt-1 text-sm text-muted-foreground">
                       {result.registrar ? `Enregistré chez ${result.registrar}. ` : ""}
-                      {result.creationDate
-                        ? `Depuis le ${new Date(result.creationDate).toLocaleDateString("fr-FR")}. `
-                        : ""}
+                      {result.creationDate ? `Depuis le ${formatDate(result.creationDate)}. ` : ""}
                       Essayez une autre variante ou l'autre extension.
                     </p>
+                    {(result.expirationDate ||
+                      result.updatedDate ||
+                      result.nameservers?.length ||
+                      result.statuses?.length) && (
+                      <dl className="mt-5 grid gap-4 border-t border-border pt-5 text-sm sm:grid-cols-2">
+                        {result.expirationDate && (
+                          <div>
+                            <dt className="text-muted-foreground">Expiration du registre</dt>
+                            <dd className="mt-1 font-medium text-foreground">
+                              {formatDate(result.expirationDate)}
+                            </dd>
+                          </div>
+                        )}
+                        {result.updatedDate && (
+                          <div>
+                            <dt className="text-muted-foreground">Dernière mise à jour</dt>
+                            <dd className="mt-1 font-medium text-foreground">
+                              {formatDate(result.updatedDate)}
+                            </dd>
+                          </div>
+                        )}
+                        {result.nameservers && result.nameservers.length > 0 && (
+                          <div className="sm:col-span-2">
+                            <dt className="text-muted-foreground">Serveurs DNS</dt>
+                            <dd className="mt-1 break-all font-medium text-foreground">
+                              {result.nameservers.join(" · ")}
+                            </dd>
+                          </div>
+                        )}
+                        {result.statuses && result.statuses.length > 0 && (
+                          <div className="sm:col-span-2">
+                            <dt className="text-muted-foreground">Statuts RDAP</dt>
+                            <dd className="mt-2 flex flex-wrap gap-2">
+                              {result.statuses.map((status) => (
+                                <span
+                                  key={status}
+                                  className="rounded-md border border-border bg-secondary px-2 py-1 text-xs text-foreground"
+                                >
+                                  {status}
+                                </span>
+                              ))}
+                            </dd>
+                          </div>
+                        )}
+                      </dl>
+                    )}
                   </div>
                 </div>
               )}
