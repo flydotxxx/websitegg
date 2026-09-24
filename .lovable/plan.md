@@ -7,7 +7,7 @@ Ajouter deux pages publiques cohérentes avec l’identité sombre actuelle de w
 - Reprendre le croquis fourni : une colonne de sélection à gauche et un aperçu web actif à droite.
 - Ajouter cinq réalisations cliquables : NU.MK, Hou.ee, Musiq3.com, dieltiens.fr et dnb.band.
 - Afficher le nom, une description courte, le domaine et un lien d’ouverture pour chaque projet.
-- Charger le site sélectionné dans une fenêtre intégrée ; prévoir un message et un lien direct si le site refuse l’intégration.
+- Charger le site sélectionné dans une fenêtre intégrée ; forcer le chargement du site dans la fenêtre intégrée.
 - Ajouter l’accès à cette page dans la navigation et le pied de page.
 
 ## `/domain`

@@ -1,0 +1,1 @@
+- [ ] Forcer le chargement intégré des sites sur /design
