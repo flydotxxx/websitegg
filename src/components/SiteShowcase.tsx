@@ -42,7 +42,7 @@ const sites = [
 
 export default function SiteShowcase() {
   const [selected, setSelected] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState<Record<number, boolean>>({});
   const site = sites[selected] ?? sites[0];
 
   return (
@@ -61,7 +61,6 @@ export default function SiteShowcase() {
                 variant="ghost"
                 onClick={() => {
                   setSelected(index);
-                  setLoading(true);
                 }}
                 className={`h-auto min-h-24 w-full items-start justify-start whitespace-normal border p-4 text-left ${
                   selected === index
@@ -99,18 +98,22 @@ export default function SiteShowcase() {
               <span className="block truncate">{site.url}</span>
             </div>
           </div>
-          {loading && (
-            <div className="absolute inset-11 flex items-center justify-center bg-background">
+          {!loaded[selected] && (
+            <div className="absolute inset-x-0 top-11 bottom-0 z-10 flex items-center justify-center bg-background">
               <Loader2 className="h-7 w-7 animate-spin text-primary" />
             </div>
           )}
-          <iframe
-            key={site.url}
-            src={`/api/public/site-preview?site=${encodeURIComponent(site.url)}`}
-            title={`Live preview of ${site.name}`}
-            className="h-[calc(100%-2.75rem)] w-full border-0 bg-background"
-            onLoad={() => setLoading(false)}
-          />
+          {sites.map((item, index) => (
+            <iframe
+              key={item.url}
+              src={`/api/public/site-preview?site=${encodeURIComponent(item.url)}`}
+              title={`Live preview of ${item.name}`}
+              className={`absolute inset-x-0 top-11 bottom-0 h-[calc(100%-2.75rem)] w-full border-0 bg-background ${
+                index === selected ? "visible" : "invisible"
+              }`}
+              onLoad={() => setLoaded((prev) => ({ ...prev, [index]: true }))}
+            />
+          ))}
         </div>
       </div>
     </section>

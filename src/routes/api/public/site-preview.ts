@@ -40,7 +40,7 @@ export const Route = createFileRoute("/api/public/site-preview")({
           return new Response(withBase, {
             headers: {
               "Content-Type": "text/html; charset=utf-8",
-              "Cache-Control": "public, max-age=300",
+              "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
               "Content-Security-Policy":
                 "default-src * data: blob: 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self';",
             },

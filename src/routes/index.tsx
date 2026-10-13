@@ -8,6 +8,8 @@ import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import { useEffect } from "react";
+import { prefetchShowcaseSites } from "@/lib/prefetch-sites";
 
 const title = "website.gg — Sites web clé en main en 7 jours, 120 €";
 const description =
@@ -30,6 +32,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useEffect(() => prefetchShowcaseSites(), []);
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
