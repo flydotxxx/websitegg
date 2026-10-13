@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { ExternalLink, Globe2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import houeePreview from "@/assets/hou-ee-preview.jpg";
+
+const snapshots: Partial<Record<string, string>> = { "https://hou.ee": houeePreview };
 
 const sites = [
   {
@@ -98,7 +101,15 @@ export default function SiteShowcase() {
               <span className="block truncate">{site.url}</span>
             </div>
           </div>
-          {!loaded[selected] && (
+          {!loaded[selected] && snapshots[site.url] && (
+            <div className="absolute inset-x-0 top-11 bottom-0 z-10 overflow-hidden bg-background">
+              <img src={snapshots[site.url]} alt={`${site.name} homepage`} className="h-full w-full object-cover object-top" />
+              <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-background/90 px-3 py-1.5 text-xs text-muted-foreground">
+                <Loader2 className="h-3.5 w-3.5 animate-spin text-primary" /> Loading live site…
+              </div>
+            </div>
+          )}
+          {!loaded[selected] && !snapshots[site.url] && (
             <div className="absolute inset-x-0 top-11 bottom-0 z-10 flex items-center justify-center bg-background">
               <Loader2 className="h-7 w-7 animate-spin text-primary" />
             </div>
