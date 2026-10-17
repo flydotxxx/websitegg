@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import Navbar from "@/components/Navbar";
 import SiteShowcase from "@/components/SiteShowcase";
 import Footer from "@/components/Footer";
+import CinematicEffects from "@/components/CinematicEffects";
 
 const title = "Créations de sites web — Portfolio website.gg";
 const description =
@@ -32,6 +33,7 @@ function DesignPage() {
         <SiteShowcase />
       </main>
       <Footer />
+      <CinematicEffects />
     </div>
   );
 }
