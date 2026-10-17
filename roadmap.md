@@ -1,3 +1,4 @@
 - [ ] Forcer le chargement intégré des sites sur /design — bloqué par les restrictions des sites tiers (scripts et changements d’adresse).
 - [x] Refaire l'identité visuelle de toutes les pages à partir des références, sans changer les offres actuelles.
 - [x] Vérifier les pages et interactions après la refonte (ordinateur, téléphone, FAQ, sélection Hou.ee, recherche RDAP google.fr).
+- [ ] Utiliser la police et la vidéo fournies, ajouter les animations cinématiques WebGL et vérifier le rendu.
