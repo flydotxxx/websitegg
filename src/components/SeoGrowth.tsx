@@ -5,6 +5,7 @@ const SeoChartScene = lazy(() => import("./SeoChartScene"));
 
 export default function SeoGrowth() {
   const section = useRef<HTMLElement>(null);
+  const sceneViewport = useRef<HTMLDivElement>(null);
   const progress = useRef(0);
   const [count, setCount] = useState(1);
   const [active, setActive] = useState(false);
@@ -44,6 +45,11 @@ export default function SeoGrowth() {
     window.addEventListener("resize", onScroll);
     return () => { observer.disconnect(); cancelAnimationFrame(frame); preference.removeEventListener("change", update); window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, []);
+  useEffect(() => {
+    const viewport = sceneViewport.current;
+    if (!viewport || viewport.scrollWidth <= viewport.clientWidth) return;
+    viewport.scrollTo({ left: (count - 1) / (seoSteps.length - 1) * (viewport.scrollWidth - viewport.clientWidth), behavior: reduced ? "instant" : "smooth" });
+  }, [count, reduced]);
   const current = seoSteps[count - 1] ?? seoSteps[0];
   return <section ref={section} id="visibilite" className="seo-growth" aria-labelledby="seo-title" data-visible-steps={count}>
     <div className="seo-sticky">
@@ -51,8 +57,10 @@ export default function SeoGrowth() {
         <div><p className="section-label">Votre présence sur Google</p><h2 id="seo-title">Une visibilité qui<br /><span className="text-primary">se construit.</span></h2></div>
         <div className="seo-summary"><p className="text-sm leading-6 text-muted-foreground">SEO & Google Business Profile : des fondations solides pour développer le trafic organique, jour après jour.</p><p className="seo-day">J{current?.day ?? 0}<span>{current?.label}</span></p></div>
       </div>
-      <div className="seo-scene" role="img" aria-label="Illustration 3D de six paliers croissants, de la conception au jour 70, espacés de 14 jours.">
-        {palette && <Suspense fallback={null}><SeoChartScene progress={progress} reduced={reduced} palette={palette} active={active} /></Suspense>}
+      <div ref={sceneViewport} className="seo-scene-viewport">
+        <div className="seo-scene" role="group" aria-label="Étapes illustratives de l’expérience client et du SEO, espacées de 14 jours.">
+          {palette && <Suspense fallback={null}><SeoChartScene progress={progress} reduced={reduced} palette={palette} active={active} /></Suspense>}
+        </div>
       </div>
       <div className="seo-footnote container mx-auto"><span>Conception → SEO → Google Business Profile</span><p>Évolution illustrative, pas des statistiques réelles ni une garantie de progression. Les résultats et les délais varient.</p></div>
     </div>
