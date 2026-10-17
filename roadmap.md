@@ -1,1 +1,3 @@
 - [ ] Forcer le chargement intégré des sites sur /design
+- [ ] Refaire l'identité visuelle de toutes les pages à partir des références, sans changer les offres actuelles.
+- [ ] Vérifier les pages et interactions après la refonte.
