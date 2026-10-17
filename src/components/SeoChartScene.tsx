@@ -1,12 +1,12 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Lightformer, Html, RoundedBox } from "@react-three/drei";
-import { useEffect, useState, useRef, type MutableRefObject } from "react";
+import { useEffect, useState, useRef, type MutableRefObject, type RefObject } from "react";
 import { Group, MathUtils } from "three";
 import { seoSteps } from "@/lib/seo-chart";
 
 type Palette = { primary: string; floor: string; light: string; accent: string };
 
-function Step({ index, progress, reduced, palette }: { index: number; progress: MutableRefObject<number>; reduced: boolean; palette: Palette }) {
+function Step({ index, progress, reduced, palette, annotationLayer }: { index: number; progress: MutableRefObject<number>; reduced: boolean; palette: Palette; annotationLayer: RefObject<HTMLDivElement | null> }) {
   const ref = useRef<Group>(null);
   const annotation = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
@@ -32,7 +32,7 @@ function Step({ index, progress, reduced, palette }: { index: number; progress: 
         <meshPhysicalMaterial color={palette.primary} roughness={0.3} metalness={0.12} clearcoat={0.85} clearcoatRoughness={0.25} envMapIntensity={0.8} />
       </RoundedBox>
     </group>
-    {ready && <Html position={[0, step.height + 0.55, 0]} center eps={0} zIndexRange={[4, 0]} className="seo-annotation-anchor">
+    {ready && <Html portal={annotationLayer} position={[0, step.height + 0.55, 0]} center eps={0} zIndexRange={[4, 0]} className="seo-annotation-anchor">
       <div ref={annotation} className="seo-annotation" data-step-day={step.day}>
         <span className="seo-step-day">J{step.day}</span>
         <h3>{step.label}</h3>
@@ -43,7 +43,7 @@ function Step({ index, progress, reduced, palette }: { index: number; progress: 
   </group>;
 }
 
-function Scene({ progress, reduced, palette }: { progress: MutableRefObject<number>; reduced: boolean; palette: Palette }) {
+function Scene({ progress, reduced, palette, annotationLayer }: { progress: MutableRefObject<number>; reduced: boolean; palette: Palette; annotationLayer: RefObject<HTMLDivElement | null> }) {
   const { camera, size } = useThree();
   useFrame((_, rawDelta) => {
     const dt = Math.min(rawDelta, 0.05);
@@ -58,12 +58,12 @@ function Scene({ progress, reduced, palette }: { progress: MutableRefObject<numb
       <Lightformer position={[0, 8, 3]} scale={[15, 8, 1]} intensity={2} color={palette.light} />
       <Lightformer position={[-8, 2, 0]} rotation-y={Math.PI / 2} scale={[10, 4, 1]} intensity={1.5} color={palette.accent} />
     </Environment>
-    {seoSteps.map((step, index) => <Step key={step.day} index={index} progress={progress} reduced={reduced} palette={palette} />)}
+    {seoSteps.map((step, index) => <Step key={step.day} index={index} progress={progress} reduced={reduced} palette={palette} annotationLayer={annotationLayer} />)}
   </>;
 }
 
-export default function SeoChartScene({ progress, reduced, palette, active }: { progress: MutableRefObject<number>; reduced: boolean; palette: Palette; active: boolean }) {
+export default function SeoChartScene({ progress, reduced, palette, active, annotationLayer }: { progress: MutableRefObject<number>; reduced: boolean; palette: Palette; active: boolean; annotationLayer: RefObject<HTMLDivElement | null> }) {
   return <Canvas orthographic shadows dpr={[1, 1.5]} camera={{ position: [7.4, 6.4, 13], zoom: 55, near: 0.1, far: 300 }} frameloop={active ? "always" : "demand"} gl={{ antialias: true, alpha: true }} onCreated={({ gl }) => gl.setClearAlpha(0)}>
-    <Scene progress={progress} reduced={reduced} palette={palette} />
+    <Scene progress={progress} reduced={reduced} palette={palette} annotationLayer={annotationLayer} />
   </Canvas>;
 }
