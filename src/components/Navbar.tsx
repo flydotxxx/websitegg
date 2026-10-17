@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe2 } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
 const links = [
   { name: "Processus", to: "/" as const, hash: "processus" },
@@ -14,15 +14,11 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/70 backdrop-blur-xl">
-      <div className="container mx-auto px-4">
+    <nav className="site-nav">
+      <div className="nav-shell mx-auto max-w-[1440px] px-5">
         <div className="flex h-16 items-center justify-between">
           <Link to="/" className="group flex items-center gap-2">
-            <div className="relative">
-              <Globe2 className="h-7 w-7 text-primary transition-transform duration-300 group-hover:rotate-12" />
-              <div className="absolute inset-0 rounded-full bg-primary/30 blur-xl" />
-            </div>
-            <span className="text-gradient font-display text-xl font-bold">website.gg</span>
+            <span className="nav-wordmark">website.gg<span className="text-primary">↗</span></span>
           </Link>
 
           <div className="hidden items-center gap-7 lg:flex">
@@ -40,7 +36,7 @@ export default function Navbar() {
 
           <div className="hidden lg:block">
             <Button variant="hero" size="sm" asChild>
-              <Link to="/" hash="brief">Démarrer mon site</Link>
+              <Link to="/" hash="brief">Démarrer mon site <ArrowUpRight /></Link>
             </Button>
           </div>
 

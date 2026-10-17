@@ -1,4 +1,4 @@
-import { FileText, Globe, CreditCard, Presentation, Wrench } from "lucide-react";
+import { FileText, Globe, CreditCard, Presentation, Wrench, ArrowUpRight } from "lucide-react";
 
 const steps = [
   {
@@ -30,39 +30,10 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="processus" className="relative py-24">
-      <div className="container mx-auto px-4">
-        <div className="mx-auto mb-16 max-w-2xl text-center">
-          <span className="text-sm font-semibold uppercase tracking-widest text-accent">
-            Le déroulé
-          </span>
-          <h2 className="mt-3 text-3xl font-bold md:text-5xl">
-            <span className="text-gradient">Cinq étapes, sept jours</span>
-          </h2>
-          <p className="mt-4 text-muted-foreground">
-            Un parcours simple et cadré, de votre brief à la mise en ligne.
-          </p>
-        </div>
-
-        <div className="mx-auto max-w-3xl">
-          {steps.map((s, i) => (
-            <div key={s.title} className="relative flex gap-6 pb-10 last:pb-0">
-              <div className="flex flex-col items-center">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-[image:var(--gradient-primary)] shadow-[var(--shadow-glow)]">
-                  <s.icon className="h-5 w-5 text-primary-foreground" />
-                </div>
-                {i < steps.length - 1 && <div className="mt-2 w-px flex-1 bg-border" />}
-              </div>
-              <div className="glass-card glass-card-hover flex-1 p-6">
-                <div className="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
-                  Étape {i + 1}
-                </div>
-                <h3 className="text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+    <section id="processus" className="editorial-section container mx-auto">
+      <div className="process-grid">
+        <div><p className="section-label">01 / Le déroulé</p><h2 className="editorial-heading mt-6">Cinq étapes.<br />Sept jours.<br /><span className="text-primary">Votre site est là.</span></h2><p className="mt-6 max-w-sm leading-relaxed text-muted-foreground">Un parcours simple et cadré, de votre brief à la mise en ligne.</p></div>
+        <div>{steps.map((step, i) => <article key={step.title} className="process-row"><span className="pt-1 text-xs text-muted-foreground">0{i + 1}</span><div><h3 className="text-xl font-medium">{step.title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{step.text}</p></div><ArrowUpRight className="h-5 w-5 text-primary" /></article>)}</div>
       </div>
     </section>
   );

@@ -3,12 +3,12 @@ import { ArrowRight, Mail, MessageCircle } from "lucide-react";
 
 export default function CTA() {
   return (
-    <section id="contact" className="relative py-24">
+    <section id="contact" className="cta-section">
       <div className="container mx-auto px-4">
-        <div className="glass-card relative mx-auto max-w-4xl overflow-hidden p-10 text-center md:p-14">
+        <div className="relative mx-auto max-w-4xl text-center">
           <div className="hero-glow animate-pulse-glow pointer-events-none absolute left-1/2 top-0 h-[400px] w-[700px] -translate-x-1/2 blur-[100px]" />
           <div className="relative z-10">
-            <h2 className="text-3xl font-bold md:text-4xl">
+            <h2 className="editorial-heading">
               <span className="text-gradient">Prêt à lancer votre site ?</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">

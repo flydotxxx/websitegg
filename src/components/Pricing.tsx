@@ -19,66 +19,13 @@ const maintenance = [
 ];
 
 export default function Pricing() {
-  return (
-    <section id="tarifs" className="relative py-24">
-      <div className="hero-glow pointer-events-none absolute left-1/2 top-1/4 h-[500px] w-[900px] -translate-x-1/2 opacity-50 blur-[130px]" />
-      <div className="container relative z-10 mx-auto px-4">
-        <div className="mx-auto mb-14 max-w-2xl text-center">
-          <span className="text-sm font-semibold uppercase tracking-widest text-accent">Tarifs</span>
-          <h2 className="mt-3 text-3xl font-bold md:text-5xl">
-            <span className="text-gradient">Un prix clair, sans surprise</span>
-          </h2>
-        </div>
-
-        <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
-          <div className="glass-card glass-card-hover relative border-primary/40 p-8">
-            <div className="absolute -top-3 left-8 rounded-full bg-[image:var(--gradient-primary)] px-3 py-1 text-xs font-semibold text-primary-foreground">
-              Création
-            </div>
-            <div className="mb-6 mt-2 flex items-end gap-2">
-              <span className="font-display text-5xl font-bold">120 €</span>
-              <span className="pb-2 text-sm text-muted-foreground">une fois</span>
-            </div>
-            <ul className="space-y-3">
-              {creation.map((f) => (
-                <li key={f} className="flex items-start gap-3 text-sm text-muted-foreground">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <Button variant="hero" size="lg" className="mt-8 w-full" asChild>
-              <a href="#contact">
-                Lancer mon site
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </Button>
-          </div>
-
-          <div className="glass-card glass-card-hover p-8">
-            <div className="absolute" />
-            <div className="mb-1 text-xs font-semibold uppercase tracking-widest text-accent">
-              Suivi annuel
-            </div>
-            <div className="mb-6 mt-2 flex items-end gap-2">
-              <span className="font-display text-5xl font-bold">40 €</span>
-              <span className="pb-2 text-sm text-muted-foreground">par an</span>
-            </div>
-            <ul className="space-y-3">
-              {maintenance.map((f) => (
-                <li key={f} className="flex items-start gap-3 text-sm text-muted-foreground">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 text-xs leading-relaxed text-muted-foreground">
-              Facturé à partir de la première année suivant la mise en ligne. Résiliable à tout
-              moment.
-            </p>
-          </div>
-        </div>
+  return <section id="tarifs" className="price-section editorial-section">
+    <div className="container mx-auto">
+      <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="section-label">04 / Les tarifs</p><h2 className="editorial-heading mt-5">Un prix clair.<br />Sans surprise.</h2></div><p className="max-w-xs text-sm leading-6 text-muted-foreground">La création pour démarrer.<br />Le suivi annuel pour avancer sereinement.</p></div>
+      <div className="grid gap-6 md:grid-cols-2">
+        <article className="price-panel"><p className="section-label mb-8">Création</p><div className="mb-8 flex flex-wrap items-end gap-3"><span className="price-value">120 €</span><span className="pb-2 text-sm">une fois</span></div><ul className="space-y-4">{creation.map(f => <li key={f} className="flex items-start gap-3 text-sm"><Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{f}</li>)}</ul><Button variant="hero" size="xl" className="mt-10 w-full" asChild><a href="#contact">Lancer mon site <ArrowRight /></a></Button></article>
+        <article className="price-panel"><p className="section-label mb-8">Suivi annuel</p><div className="mb-8 flex flex-wrap items-end gap-3"><span className="price-value">40 €</span><span className="pb-2 text-sm">par an</span></div><ul className="space-y-4">{maintenance.map(f => <li key={f} className="flex items-start gap-3 text-sm"><Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{f}</li>)}</ul><p className="mt-10 border-t border-border pt-6 text-xs leading-6 text-muted-foreground">Facturé à partir de la première année suivant la mise en ligne. Résiliable à tout moment.</p></article>
       </div>
-    </section>
-  );
+    </div>
+  </section>;
 }

@@ -52,13 +52,13 @@ function DomainPage() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        <header className="relative overflow-hidden px-4 pt-36 pb-16 text-center">
+        <header className="page-cover text-center">
           <div className="hero-glow pointer-events-none absolute inset-x-0 top-0 h-[520px] blur-[100px]" />
           <div className="relative mx-auto max-w-4xl">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-md border border-border bg-secondary">
               <Globe2 className="h-6 w-6 text-accent" />
             </div>
-            <h1 className="mt-6 text-4xl font-bold md:text-6xl">
+            <h1 className="mt-6">
               Trouvez votre <span className="text-gradient">nom de domaine</span>
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">

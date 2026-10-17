@@ -34,22 +34,22 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section id="faq" className="relative py-24">
+    <section id="faq" className="faq-section editorial-section">
       <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-2xl">
+        <div className="mx-auto max-w-4xl">
           <div className="mb-10 text-center">
-            <span className="text-sm font-semibold uppercase tracking-widest text-accent">FAQ</span>
+            <span className="section-label justify-center">FAQ</span>
             <h2 className="mt-3 text-3xl font-bold md:text-4xl">
               <span className="text-gradient">Questions fréquentes</span>
             </h2>
           </div>
 
-          <Accordion type="single" collapsible className="space-y-3">
+          <Accordion type="single" collapsible className="faq-list">
             {faqs.map((f, i) => (
               <AccordionItem
                 key={f.q}
                 value={`item-${i}`}
-                className="glass-card border-b-0 px-5 data-[state=open]:border-primary/40"
+                className="border-border last:border-b-0"
               >
                 <AccordionTrigger className="text-left text-base hover:no-underline">
                   {f.q}

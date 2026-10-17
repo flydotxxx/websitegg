@@ -27,16 +27,8 @@ function DesignPage() {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-28">
-        <header className="container mx-auto px-4 pb-12 text-center">
-          <p className="text-sm font-semibold uppercase text-accent">Our designs</p>
-          <h1 className="mx-auto mt-4 max-w-4xl text-4xl font-bold md:text-6xl">
-            Websites made to be <span className="text-gradient">used, heard and explored.</span>
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">
-            Select a client project and explore the live website without leaving this page.
-          </p>
-        </header>
+      <main className="pb-8">
+        <header className="page-cover"><div className="container mx-auto"><p className="section-label">L’atelier / Réalisations</p><h1 className="mt-6">Des sites à vivre.<br /><span className="text-primary">Pas juste à regarder.</span></h1><p className="mt-6 max-w-lg text-lg leading-7 text-muted-foreground">Musique, culture et services numériques : les projets conçus pour nos clients.</p></div></header>
         <SiteShowcase />
       </main>
       <Footer />
