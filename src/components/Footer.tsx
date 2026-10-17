@@ -13,8 +13,8 @@ export default function Footer() {
             <Link to="/" hash="processus" className="hover:text-foreground">
               Processus
             </Link>
-            <Link to="/design" className="hover:text-foreground">
-              Designs
+            <Link to="/" hash="visibilite" className="hover:text-foreground">
+              Visibilité
             </Link>
             <Link to="/domain" className="hover:text-foreground">
               Domaine

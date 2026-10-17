@@ -5,7 +5,7 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 
 const links = [
   { name: "Processus", to: "/" as const, hash: "processus" },
-  { name: "Designs", to: "/design" as const },
+  { name: "Visibilité", to: "/" as const, hash: "visibilite" },
   { name: "Domaine", to: "/domain" as const },
   { name: "Tarifs", to: "/" as const, hash: "tarifs" },
 ];

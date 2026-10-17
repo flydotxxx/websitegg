@@ -1,31 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, ArrowUpRight, Pause, Play } from "lucide-react";
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import videoAsset from "@/assets/cinematic-background.mp4.asset.json";
 import webmAsset from "@/assets/cinematic-background.webm.asset.json";
 import posterAsset from "@/assets/cinematic-poster.jpg.asset.json";
 
-const CinematicCanvas = lazy(() => import("@/components/CinematicCanvas"));
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const [video, setVideo] = useState<HTMLVideoElement | null>(null);
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(true);
   const [visible, setVisible] = useState(true);
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const element = videoRef.current;
-    const ready = () => { if (element && element.readyState >= 2) setVideo(element); };
-    ready();
-    element?.addEventListener("loadeddata", ready);
     const update = () => setReducedMotion(preference.matches);
     update();
     preference.addEventListener("change", update);
     const observer = new IntersectionObserver(([entry]) => setVisible(entry?.isIntersecting ?? false));
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => { element?.removeEventListener("loadeddata", ready); preference.removeEventListener("change", update); observer.disconnect(); };
+    return () => { preference.removeEventListener("change", update); observer.disconnect(); };
   }, []);
   const active = !paused && !reducedMotion && visible;
   useEffect(() => {
@@ -36,8 +30,7 @@ export default function Hero() {
   }, [active]);
   return <>
     <section ref={sectionRef} id="top" className="hero-editorial cinematic-hero">
-      <video ref={videoRef} poster={posterAsset.url} className="hero-art" muted loop playsInline preload="auto" aria-hidden="true" onLoadedData={() => setVideo(videoRef.current)}><source src={webmAsset.url} type="video/webm" /><source src={videoAsset.url} type="video/mp4" /></video>
-      {video && !reducedMotion && <Suspense fallback={null}><CinematicCanvas video={video} active={active} /></Suspense>}
+      <video ref={videoRef} poster={posterAsset.url} className="hero-art" muted loop playsInline preload="auto" aria-hidden="true"><source src={webmAsset.url} type="video/webm" /><source src={videoAsset.url} type="video/mp4" /></video>
       <div className="cinematic-veil" aria-hidden="true" />
       <div className="hero-copy">
         <p className="section-label">Website agency · Alsace</p>
