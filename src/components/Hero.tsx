@@ -16,12 +16,16 @@ export default function Hero() {
   const [visible, setVisible] = useState(true);
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const element = videoRef.current;
+    const ready = () => { if (element && element.readyState >= 2) setVideo(element); };
+    ready();
+    element?.addEventListener("loadeddata", ready);
     const update = () => setReducedMotion(preference.matches);
     update();
     preference.addEventListener("change", update);
     const observer = new IntersectionObserver(([entry]) => setVisible(entry?.isIntersecting ?? false));
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => { preference.removeEventListener("change", update); observer.disconnect(); };
+    return () => { element?.removeEventListener("loadeddata", ready); preference.removeEventListener("change", update); observer.disconnect(); };
   }, []);
   const active = !paused && !reducedMotion && visible;
   useEffect(() => {
