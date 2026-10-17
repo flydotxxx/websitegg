@@ -65,7 +65,7 @@ export default function SeoGrowth() {
       </div>
       <div ref={sceneViewport} className="seo-scene-viewport">
         <div className="seo-scene" role="group" aria-label="Contact website.gg au jour 1, puis étapes illustratives de l’expérience client et du SEO par paliers de 14 jours.">
-          <div ref={annotationLayer} className="cinematic-webgl" />
+          <div ref={annotationLayer} className="seo-annotation-layer">{seoSteps.map(step => <div key={step.day} className="seo-annotation" data-step-day={step.day}><span className="seo-step-day">J{step.day}</span><h3>{step.label}</h3><p>{step.client}</p><p className="seo-step-search">{step.seo}</p></div>)}</div>
           {palette && <Suspense fallback={null}><SeoChartScene progress={progress} reduced={reduced} palette={palette} active={active} annotationLayer={annotationLayer} /></Suspense>}
         </div>
       </div>

@@ -1,27 +1,29 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Environment, Lightformer, Html, RoundedBox } from "@react-three/drei";
-import { useEffect, useState, useRef, type MutableRefObject, type RefObject } from "react";
-import { Group, MathUtils } from "three";
+import { Environment, Lightformer, RoundedBox } from "@react-three/drei";
+import { useRef, type MutableRefObject, type RefObject } from "react";
+import { Group, MathUtils, Vector3 } from "three";
 import { seoSteps } from "@/lib/seo-chart";
 
 type Palette = { primary: string; floor: string; light: string; accent: string };
 
 function Step({ index, progress, reduced, palette, annotationLayer }: { index: number; progress: MutableRefObject<number>; reduced: boolean; palette: Palette; annotationLayer: RefObject<HTMLDivElement | null> }) {
   const ref = useRef<Group>(null);
-  const annotation = useRef<HTMLDivElement>(null);
-  const [ready, setReady] = useState(false);
-  useEffect(() => { setReady(true); }, []);
+  const point = useRef(new Vector3());
   const step = seoSteps[index];
-  useFrame((_, rawDelta) => {
+  useFrame(({ camera, size }, rawDelta) => {
     const group = ref.current;
     if (!group) return;
     const target = reduced || index === 0 ? 1 : MathUtils.clamp((progress.current * (seoSteps.length - 1) - index + 0.8) / 0.8, 0, 1);
     const next = reduced ? target : MathUtils.damp(group.scale.y, target, 8, Math.min(rawDelta, 0.05));
     group.scale.y = Math.max(0.001, next);
     group.visible = next > 0.005;
-    if (annotation.current) {
-      annotation.current.style.opacity = String(next);
-      annotation.current.style.visibility = next > 0.05 ? "visible" : "hidden";
+    const annotation = annotationLayer.current?.querySelector<HTMLElement>(`[data-step-day="${step?.day}"]`);
+    if (annotation && step) {
+      point.current.set((index - (seoSteps.length - 1) / 2) * 3.6, step.height + 0.55, 0).project(camera);
+      annotation.style.left = `${(point.current.x + 1) * size.width / 2}px`;
+      annotation.style.top = `${(1 - point.current.y) * size.height / 2}px`;
+      annotation.style.opacity = String(next);
+      annotation.style.visibility = next > 0.05 ? "visible" : "hidden";
     }
   });
   if (!step) return null;
@@ -32,14 +34,6 @@ function Step({ index, progress, reduced, palette, annotationLayer }: { index: n
         <meshPhysicalMaterial color={palette.primary} roughness={0.3} metalness={0.12} clearcoat={0.85} clearcoatRoughness={0.25} envMapIntensity={0.8} />
       </RoundedBox>
     </group>
-    {ready && <Html portal={annotationLayer} position={[0, step.height + 0.55, 0]} center eps={0} zIndexRange={[4, 0]} className="seo-annotation-anchor">
-      <div ref={annotation} className="seo-annotation" data-step-day={step.day}>
-        <span className="seo-step-day">J{step.day}</span>
-        <h3>{step.label}</h3>
-        <p>{step.client}</p>
-        <p className="seo-step-search">{step.seo}</p>
-      </div>
-    </Html>}
   </group>;
 }
 
