@@ -2,4 +2,5 @@
 - [x] Refaire l'identité visuelle de toutes les pages à partir des références, sans changer les offres actuelles.
 - [x] Vérifier les pages et interactions après la refonte (ordinateur, téléphone, FAQ, sélection Hou.ee, recherche RDAP google.fr).
 - [x] Utiliser la police et la vidéo fournies, ajouter les animations cinématiques WebGL et vérifier le rendu.
-- [ ] Corriger les proportions de la vidéo et ajouter le graphique SEO 3D au défilement, avec des paliers de 14 jours.
+- [x] Corriger les proportions de la vidéo et ajouter le graphique SEO 3D au défilement, avec des paliers de 14 jours.
+- [ ] Intégrer le graphique sur fond transparent, expliquer chaque marche au-dessus et supprimer la ligne horizontale de la vidéo ; vérifier le rendu.
