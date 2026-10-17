@@ -248,7 +248,7 @@ body { margin: 0; letter-spacing: 0; }
 }
 @media (max-width: 639px) {
   .site-nav { top: 16px; left: 16px; right: 16px; }
-  .hero-editorial { min-height: 730px; height: calc(100svh - 16px); max-height: 860px; }
+  .hero-editorial { min-height: 700px; height: calc(100svh - 72px); max-height: 860px; }
   .hero-copy { padding: 135px 22px 80px; }
   .hero-title { font-size: 46px; margin-top: 24px; }
   .hero-description { font-size: 16px; max-width: 330px; }
