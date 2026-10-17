@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowDown, ArrowUpRight, Pause, Play } from "lucide-react";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import videoAsset from "@/assets/cinematic-background.mp4.asset.json";
+import webmAsset from "@/assets/cinematic-background.webm.asset.json";
 import posterAsset from "@/assets/cinematic-poster.jpg.asset.json";
 
 const CinematicCanvas = lazy(() => import("@/components/CinematicCanvas"));
@@ -31,7 +32,7 @@ export default function Hero() {
   }, [active]);
   return <>
     <section ref={sectionRef} id="top" className="hero-editorial cinematic-hero">
-      <video ref={videoRef} src={videoAsset.url} poster={posterAsset.url} className="hero-art" muted loop playsInline preload="auto" aria-hidden="true" onLoadedData={() => setVideo(videoRef.current)} />
+      <video ref={videoRef} poster={posterAsset.url} className="hero-art" muted loop playsInline preload="auto" aria-hidden="true" onLoadedData={() => setVideo(videoRef.current)}><source src={webmAsset.url} type="video/webm" /><source src={videoAsset.url} type="video/mp4" /></video>
       {video && !reducedMotion && <Suspense fallback={null}><CinematicCanvas video={video} active={active} /></Suspense>}
       <div className="cinematic-veil" aria-hidden="true" />
       <div className="hero-copy">
