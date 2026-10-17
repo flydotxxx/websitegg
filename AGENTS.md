@@ -11,3 +11,5 @@
 
 - Keep the visual system centralized in src/styles.css and Button variants; page layouts use the shared editorial classes so all public pages stay consistent.
 - Reference archives supply design inspiration only; retain offer data from the active project when restyling.
+- Load the decorative WebGL video shader lazily after video readiness; keep the native video underneath and disable motion for reduced-motion preferences or offscreen content to preserve accessible SSR and performance.
+- Use the shared CinematicEffects observer for public-page reveals and reading progress rather than independent per-section scroll listeners.
