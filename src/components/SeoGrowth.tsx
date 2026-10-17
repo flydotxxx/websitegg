@@ -48,17 +48,22 @@ export default function SeoGrowth() {
   useEffect(() => {
     const viewport = sceneViewport.current;
     if (!viewport || viewport.scrollWidth <= viewport.clientWidth) return;
-    viewport.scrollTo({ left: (count - 1) / (seoSteps.length - 1) * (viewport.scrollWidth - viewport.clientWidth), behavior: reduced ? "instant" : "smooth" });
+    const timer = window.setTimeout(() => {
+      const label = viewport.querySelector<HTMLElement>(`[data-step-day="${seoSteps[count - 1]?.day}"]`);
+      if (!label) return;
+      const bounds = label.getBoundingClientRect();
+      const frame = viewport.getBoundingClientRect();
+      viewport.scrollTo({ left: viewport.scrollLeft + bounds.left - frame.left + bounds.width / 2 - viewport.clientWidth / 2, behavior: reduced ? "instant" : "smooth" });
+    }, 350);
+    return () => window.clearTimeout(timer);
   }, [count, reduced]);
-  const current = seoSteps[count - 1] ?? seoSteps[0];
   return <section ref={section} id="visibilite" className="seo-growth" aria-labelledby="seo-title" data-visible-steps={count}>
     <div className="seo-sticky">
       <div className="seo-heading container mx-auto">
         <div><p className="section-label">Votre présence sur Google</p><h2 id="seo-title">Une visibilité qui<br /><span className="text-primary">se construit.</span></h2></div>
-        <div className="seo-summary"><p className="text-sm leading-6 text-muted-foreground">SEO & Google Business Profile : des fondations solides pour développer le trafic organique, jour après jour.</p><p className="seo-day">J{current?.day ?? 0}<span>{current?.label}</span></p></div>
       </div>
       <div ref={sceneViewport} className="seo-scene-viewport">
-        <div className="seo-scene" role="group" aria-label="Étapes illustratives de l’expérience client et du SEO, espacées de 14 jours.">
+        <div className="seo-scene" role="group" aria-label="Contact website.gg au jour 1, puis étapes illustratives de l’expérience client et du SEO par paliers de 14 jours.">
           {palette && <Suspense fallback={null}><SeoChartScene progress={progress} reduced={reduced} palette={palette} active={active} /></Suspense>}
         </div>
       </div>
