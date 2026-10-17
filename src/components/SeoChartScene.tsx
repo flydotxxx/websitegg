@@ -28,8 +28,8 @@ function Step({ index, progress, reduced, palette }: { index: number; progress: 
   const x = (index - (seoSteps.length - 1) / 2) * 3.6;
   return <group position={[x, 0, 0]}>
     <group ref={ref} scale={[1, index === 0 || reduced ? 1 : 0.001, 1]}>
-      <RoundedBox args={[1.02, step.height, 1.12]} radius={0.025} smoothness={2} position={[0, step.height / 2, 0]} castShadow receiveShadow>
-        <meshPhysicalMaterial color={palette.primary} roughness={0.24} metalness={0.18} clearcoat={0.65} clearcoatRoughness={0.2} />
+      <RoundedBox args={[0.86, step.height, 0.58]} radius={0.055} smoothness={5} position={[0, step.height / 2, 0]} castShadow receiveShadow>
+        <meshPhysicalMaterial color={palette.primary} roughness={0.3} metalness={0.12} clearcoat={0.85} clearcoatRoughness={0.25} envMapIntensity={0.8} />
       </RoundedBox>
     </group>
     {ready && <Html position={[0, step.height + 0.55, 0]} center eps={0} zIndexRange={[4, 0]} className="seo-annotation-anchor">
