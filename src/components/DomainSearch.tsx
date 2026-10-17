@@ -53,11 +53,11 @@ export default function DomainSearch({
   const Heading = headingLevel;
 
   return (
-    <section id="domaine" className="relative py-24">
+    <section id="domaine" className="domain-band editorial-section">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           {showStep && (
-            <span className="text-sm font-semibold uppercase text-accent">Étape 2</span>
+            <span className="section-label justify-center">03 / Votre adresse</span>
           )}
           <Heading className={`${showStep ? "mt-3" : ""} text-3xl font-bold md:text-5xl`}>
             <span className="text-gradient">Votre nom de domaine</span>

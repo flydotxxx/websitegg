@@ -50,10 +50,10 @@ export default function SiteShowcase() {
 
   return (
     <section className="container mx-auto px-4 pb-20">
-      <div className="grid min-h-[680px] overflow-hidden rounded-xl border border-border bg-card/40 shadow-[var(--shadow-card)] lg:grid-cols-[340px_minmax(0,1fr)]">
+      <div className="grid min-h-[680px] overflow-hidden rounded-lg border border-border bg-card shadow-[var(--shadow-card)] lg:grid-cols-[340px_minmax(0,1fr)]">
         <aside className="border-b border-border bg-secondary/30 p-4 lg:border-r lg:border-b-0 lg:p-6">
           <div className="mb-5 flex items-center gap-2 px-2">
-            <Globe2 className="h-5 w-5 text-accent" />
+            <Globe2 className="h-5 w-5 text-primary" />
             <p className="text-sm font-semibold uppercase text-muted-foreground">Selected work</p>
           </div>
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">

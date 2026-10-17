@@ -52,13 +52,13 @@ function DomainPage() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        <header className="relative overflow-hidden px-4 pt-36 pb-16 text-center">
+        <header className="page-cover text-center">
           <div className="hero-glow pointer-events-none absolute inset-x-0 top-0 h-[520px] blur-[100px]" />
           <div className="relative mx-auto max-w-4xl">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-md border border-border bg-secondary">
-              <Globe2 className="h-6 w-6 text-accent" />
+              <Globe2 className="h-6 w-6 text-primary" />
             </div>
-            <h1 className="mt-6 text-4xl font-bold md:text-6xl">
+            <h1 className="mt-6">
               Trouvez votre <span className="text-gradient">nom de domaine</span>
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
@@ -73,7 +73,7 @@ function DomainPage() {
         <section className="border-y border-border bg-secondary/20 py-20">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-semibold uppercase text-accent">Bien choisir son adresse</p>
+              <p className="section-label justify-center">Bien choisir son adresse</p>
               <h2 className="mt-3 text-3xl font-bold md:text-5xl">Un nom simple inspire confiance</h2>
             </div>
             <div className="mx-auto mt-12 grid max-w-5xl gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-2">
@@ -91,7 +91,7 @@ function DomainPage() {
         <section className="container mx-auto px-4 py-20">
           <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2">
             <div>
-              <p className="text-sm font-semibold uppercase text-accent">De la recherche à la mise en ligne</p>
+              <p className="section-label">De la recherche à la mise en ligne</p>
               <h2 className="mt-3 text-3xl font-bold">Votre domaine, sans démarches compliquées</h2>
             </div>
             <div className="space-y-5 leading-7 text-muted-foreground">

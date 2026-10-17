@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the visual system centralized in src/styles.css and Button variants; page layouts use the shared editorial classes so all public pages stay consistent.
+- Reference archives supply design inspiration only; retain offer data from the active project when restyling.
