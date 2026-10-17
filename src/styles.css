@@ -5,8 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * website.gg design system — dark "atelier" theme:
- * deep navy canvas, violet glow, ice-blue accent.
+ * website.gg design system — editorial cinematic atelier.
  * All colors in oklch. Never hardcode colors in components.
  */
 
@@ -54,7 +53,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo Uploaded", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -273,4 +272,59 @@ body { margin: 0; letter-spacing: 0; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition-duration: 0s !important; }
+}
+
+@font-face {
+  font-family: "Archivo Uploaded";
+  src: url("/__l5e/assets-v1/a6b29879-912e-402c-ad6a-ada5d5142824/archivo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --cinematic-veil: linear-gradient(90deg, color-mix(in oklab, var(--background) 94%, transparent) 0%, color-mix(in oklab, var(--background) 83%, transparent) 34%, color-mix(in oklab, var(--background) 12%, transparent) 70%, transparent 100%);
+  --cinematic-floor: linear-gradient(0deg, color-mix(in oklab, var(--background) 90%, transparent), transparent 25%);
+  --cinematic-ease: cubic-bezier(.16, 1, .3, 1);
+}
+.cinematic-hero { min-height: 700px; height: calc(100svh - 56px); max-height: 960px; background: var(--background); }
+.cinematic-hero .hero-art { opacity: 1; object-position: center; }
+.cinematic-webgl { position: absolute; inset: 0; pointer-events: none; }
+.cinematic-veil { position: absolute; inset: 0; background: var(--cinematic-veil), var(--cinematic-floor); pointer-events: none; }
+.cinematic-hero .hero-copy { z-index: 2; }
+.cinematic-hero .hero-title { font-size: 82px; max-width: 780px; line-height: 1.03; }
+.cinematic-hero .hero-title span { animation: cinematic-title 1.5s var(--cinematic-ease) both; }
+.cinematic-hero .hero-title span:nth-child(2) { animation-delay: 160ms; }
+.cinematic-hero .section-label, .cinematic-hero .hero-description, .cinematic-hero .hero-copy > div { animation: cinematic-enter 1.4s var(--cinematic-ease) both; }
+.cinematic-hero .hero-description { animation-delay: 300ms; }
+.cinematic-hero .hero-copy > div { animation-delay: 440ms; }
+.cinematic-hero .hero-caption { z-index: 2; align-items: center; }
+.cinematic-arrow { animation: cinematic-arrow 2.8s ease-in-out infinite; }
+.cinematic-progress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 70; background: var(--primary); transform: scaleX(var(--read-progress, 0)); transform-origin: left; pointer-events: none; }
+.cinematic-reveal { opacity: 0; transform: translateY(35px); transition: opacity 1s var(--cinematic-ease) var(--reveal-delay, 0ms), transform 1.2s var(--cinematic-ease) var(--reveal-delay, 0ms); }
+.cinematic-reveal.is-revealed { opacity: 1; transform: translateY(0); }
+.process-row { transition: border-color .4s, transform .6s var(--cinematic-ease), opacity 1s; }
+.process-row:hover { border-color: var(--primary); }
+.process-row > :last-child { transition: transform .5s var(--cinematic-ease); }
+.process-row:hover > :last-child { transform: translate(4px,-4px); }
+.price-panel { transition: transform .6s var(--cinematic-ease), opacity 1s, box-shadow .6s; }
+.price-panel.is-revealed:hover { transform: translateY(-6px); box-shadow: var(--shadow-card); }
+.nav-shell { animation: cinematic-enter 1s var(--cinematic-ease) both; }
+a svg { transition: transform .4s var(--cinematic-ease); }
+a:hover svg { transform: translate(2px,-2px); }
+@keyframes cinematic-title { from { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateY(45px); } to { opacity: 1; clip-path: inset(0); transform: translateY(0); } }
+@keyframes cinematic-enter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes cinematic-arrow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+@media (max-width: 1023px) { .cinematic-hero .hero-title { font-size: 64px; } }
+@media (max-width: 639px) {
+  .cinematic-hero { height: calc(100svh - 48px); min-height: 680px; }
+  .cinematic-hero .hero-title { font-size: 46px; }
+  .cinematic-veil { background: linear-gradient(90deg, color-mix(in oklab, var(--background) 90%, transparent), color-mix(in oklab, var(--background) 50%, transparent)), var(--cinematic-floor); }
+  .cinematic-hero .hero-caption > span { max-width: 120px; }
+  .cinematic-hero .hero-caption > div { gap: 12px; }
+  .cinematic-hero .hero-caption a { max-width: 100px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-reveal { opacity: 1; transform: none; }
+  .cinematic-hero .hero-title span, .cinematic-hero .hero-description, .cinematic-hero .hero-copy > div, .cinematic-hero .section-label, .nav-shell { animation: none; }
+  .cinematic-progress { display: none; }
 }

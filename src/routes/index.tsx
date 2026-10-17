@@ -10,6 +10,7 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import { useEffect } from "react";
 import { prefetchShowcaseSites } from "@/lib/prefetch-sites";
+import CinematicEffects from "@/components/CinematicEffects";
 
 const title = "website.gg — Sites web clé en main en 7 jours, 120 €";
 const description =
@@ -46,6 +47,7 @@ function Index() {
         <CTA />
       </main>
       <Footer />
+      <CinematicEffects />
     </div>
   );
 }

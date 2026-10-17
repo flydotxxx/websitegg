@@ -3,6 +3,7 @@ import { BadgeCheck, CircleDot, Globe2, RefreshCw, SearchCheck } from "lucide-re
 import Navbar from "@/components/Navbar";
 import DomainSearch from "@/components/DomainSearch";
 import Footer from "@/components/Footer";
+import CinematicEffects from "@/components/CinematicEffects";
 
 const title = "Nom de domaine .fr ou .com — Recherche RDAP | website.gg";
 const description =
@@ -113,6 +114,7 @@ function DomainPage() {
         </section>
       </main>
       <Footer />
+      <CinematicEffects />
     </div>
   );
 }
