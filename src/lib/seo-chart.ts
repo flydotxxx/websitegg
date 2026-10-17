@@ -1,6 +1,5 @@
 // Heights are illustrative, not traffic measurements or a growth forecast.
 export const seoSteps = [
-  { day: 0, height: 0.6, label: "Conception", client: "Votre brief guide le design.", seo: "Vos besoins et mots-clés posent les bases." },
   { day: 1, height: 0.85, label: "Contact website.gg", client: "Un premier échange autour de votre projet.", seo: "Votre activité et vos objectifs guident la conception." },
   { day: 14, height: 1.15, label: "Premiers retours", client: "Vos retours affinent le site.", seo: "Structure, titres et indexation : les fondations SEO." },
   { day: 28, height: 1.9, label: "Ancrage local", client: "Vos visiteurs trouvent les informations utiles.", seo: "Google Business Profile renforce la présence locale." },

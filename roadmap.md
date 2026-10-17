@@ -3,5 +3,6 @@
 - [x] Vérifier les pages et interactions après la refonte (ordinateur, téléphone, FAQ, sélection Hou.ee, recherche RDAP google.fr).
 - [x] Utiliser la police et la vidéo fournies, ajouter les animations cinématiques WebGL et vérifier le rendu.
 - [x] Corriger les proportions de la vidéo et ajouter le graphique SEO 3D au défilement, avec des paliers de 14 jours.
-- [ ] Intégrer le graphique sur fond transparent, expliquer chaque marche au-dessus et supprimer la ligne horizontale de la vidéo ; vérifier le rendu.
-- [ ] Rétablir l’inclinaison 3D, espacer les légendes, ajouter J1 contact website.gg et supprimer le résumé répétitif.
+- [x] Intégrer le graphique sur fond transparent, expliquer chaque marche au-dessus et supprimer la ligne horizontale de la vidéo ; vérifier le rendu.
+- [x] Rétablir l’inclinaison 3D, espacer les légendes, ajouter J1 contact website.gg et supprimer le résumé répétitif.
+- [x] Supprimer le cube avant J1 et affiner les rectangles 3D.

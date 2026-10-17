@@ -6,6 +6,7 @@ const SeoChartScene = lazy(() => import("./SeoChartScene"));
 export default function SeoGrowth() {
   const section = useRef<HTMLElement>(null);
   const sceneViewport = useRef<HTMLDivElement>(null);
+  const annotationLayer = useRef<HTMLDivElement>(null);
   const progress = useRef(0);
   const [count, setCount] = useState(1);
   const [active, setActive] = useState(false);
@@ -64,7 +65,8 @@ export default function SeoGrowth() {
       </div>
       <div ref={sceneViewport} className="seo-scene-viewport">
         <div className="seo-scene" role="group" aria-label="Contact website.gg au jour 1, puis étapes illustratives de l’expérience client et du SEO par paliers de 14 jours.">
-          {palette && <Suspense fallback={null}><SeoChartScene progress={progress} reduced={reduced} palette={palette} active={active} /></Suspense>}
+          <div ref={annotationLayer} className="seo-annotation-layer">{seoSteps.map(step => <div key={step.day} className="seo-annotation" data-step-day={step.day}><span className="seo-step-day">J{step.day}</span><h3>{step.label}</h3><p>{step.client}</p><p className="seo-step-search">{step.seo}</p></div>)}</div>
+          {palette && <Suspense fallback={null}><SeoChartScene progress={progress} reduced={reduced} palette={palette} active={active} annotationLayer={annotationLayer} /></Suspense>}
         </div>
       </div>
       <div className="seo-footnote container mx-auto"><span>Conception → SEO → Google Business Profile</span><p>Évolution illustrative, pas des statistiques réelles ni une garantie de progression. Les résultats et les délais varient.</p></div>
