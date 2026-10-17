@@ -13,7 +13,7 @@ function Step({ index, progress, reduced, palette }: { index: number; progress: 
   useFrame((_, rawDelta) => {
     const group = ref.current;
     if (!group) return;
-    const target = reduced || index === 0 ? 1 : MathUtils.clamp((progress.current * 5 - index + 0.8) / 0.8, 0, 1);
+    const target = reduced || index === 0 ? 1 : MathUtils.clamp((progress.current * (seoSteps.length - 1) - index + 0.8) / 0.8, 0, 1);
     const next = reduced ? target : MathUtils.damp(group.scale.y, target, 8, Math.min(rawDelta, 0.05));
     group.scale.y = Math.max(0.001, next);
     group.visible = next > 0.005;
@@ -23,14 +23,14 @@ function Step({ index, progress, reduced, palette }: { index: number; progress: 
     }
   });
   if (!step) return null;
-  const x = (index - 2.5) * 1.65;
+  const x = (index - (seoSteps.length - 1) / 2) * 3.6;
   return <group position={[x, 0, 0]}>
     <group ref={ref} scale={[1, index === 0 || reduced ? 1 : 0.001, 1]}>
       <RoundedBox args={[1.02, step.height, 1.12]} radius={0.025} smoothness={2} position={[0, step.height / 2, 0]} castShadow receiveShadow>
         <meshPhysicalMaterial color={palette.primary} roughness={0.24} metalness={0.18} clearcoat={0.65} clearcoatRoughness={0.2} />
       </RoundedBox>
     </group>
-    <Html position={[0, step.height + 0.25, 0]} center zIndexRange={[4, 0]} className="seo-annotation-anchor">
+    <Html position={[0, step.height + 0.55, 0]} center eps={0} zIndexRange={[4, 0]} className="seo-annotation-anchor">
       <div ref={annotation} className="seo-annotation">
         <span className="seo-step-day">J{step.day}</span>
         <h3>{step.label}</h3>
@@ -45,9 +45,9 @@ function Scene({ progress, reduced, palette }: { progress: MutableRefObject<numb
   const { camera, size } = useThree();
   useFrame((_, rawDelta) => {
     const dt = Math.min(rawDelta, 0.05);
-    camera.position.x = MathUtils.damp(camera.position.x, 0.8 - progress.current * 0.5, 3, dt);
-    camera.lookAt(0, 2.9, 0);
-    if ("zoom" in camera) { camera.zoom = Math.min(size.width / 11.2, size.height / 7.5); camera.updateProjectionMatrix(); }
+    camera.position.x = MathUtils.damp(camera.position.x, 7.4 - progress.current * 1.4, 3, dt);
+    camera.lookAt(0, 2.8, 0);
+    if ("zoom" in camera) { camera.zoom = Math.min(size.width / 25, size.height / 11); camera.updateProjectionMatrix(); }
   });
   return <>
     <ambientLight intensity={0.7} />
@@ -61,7 +61,7 @@ function Scene({ progress, reduced, palette }: { progress: MutableRefObject<numb
 }
 
 export default function SeoChartScene({ progress, reduced, palette, active }: { progress: MutableRefObject<number>; reduced: boolean; palette: Palette; active: boolean }) {
-  return <Canvas orthographic shadows dpr={[1, 1.5]} camera={{ position: [0.8, 6, 18], zoom: 55, near: 0.1, far: 300 }} frameloop={active ? "always" : "demand"} gl={{ antialias: true, alpha: true }} onCreated={({ gl }) => gl.setClearAlpha(0)}>
+  return <Canvas orthographic shadows dpr={[1, 1.5]} camera={{ position: [7.4, 6.4, 13], zoom: 55, near: 0.1, far: 300 }} frameloop={active ? "always" : "demand"} gl={{ antialias: true, alpha: true }} onCreated={({ gl }) => gl.setClearAlpha(0)}>
     <Scene progress={progress} reduced={reduced} palette={palette} />
   </Canvas>;
 }

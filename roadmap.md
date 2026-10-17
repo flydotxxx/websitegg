@@ -4,3 +4,4 @@
 - [x] Utiliser la police et la vidéo fournies, ajouter les animations cinématiques WebGL et vérifier le rendu.
 - [x] Corriger les proportions de la vidéo et ajouter le graphique SEO 3D au défilement, avec des paliers de 14 jours.
 - [ ] Intégrer le graphique sur fond transparent, expliquer chaque marche au-dessus et supprimer la ligne horizontale de la vidéo ; vérifier le rendu.
+- [ ] Rétablir l’inclinaison 3D, espacer les légendes, ajouter J1 contact website.gg et supprimer le résumé répétitif.
