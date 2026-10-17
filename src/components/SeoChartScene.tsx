@@ -1,6 +1,6 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Lightformer, Html, RoundedBox } from "@react-three/drei";
-import { useRef, type MutableRefObject } from "react";
+import { useEffect, useState, useRef, type MutableRefObject } from "react";
 import { Group, MathUtils } from "three";
 import { seoSteps } from "@/lib/seo-chart";
 
@@ -9,6 +9,8 @@ type Palette = { primary: string; floor: string; light: string; accent: string }
 function Step({ index, progress, reduced, palette }: { index: number; progress: MutableRefObject<number>; reduced: boolean; palette: Palette }) {
   const ref = useRef<Group>(null);
   const annotation = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false);
+  useEffect(() => { setReady(true); }, []);
   const step = seoSteps[index];
   useFrame((_, rawDelta) => {
     const group = ref.current;
@@ -30,14 +32,14 @@ function Step({ index, progress, reduced, palette }: { index: number; progress: 
         <meshPhysicalMaterial color={palette.primary} roughness={0.24} metalness={0.18} clearcoat={0.65} clearcoatRoughness={0.2} />
       </RoundedBox>
     </group>
-    <Html position={[0, step.height + 0.55, 0]} center eps={0} zIndexRange={[4, 0]} className="seo-annotation-anchor">
-      <div ref={annotation} className="seo-annotation">
+    {ready && <Html position={[0, step.height + 0.55, 0]} center eps={0} zIndexRange={[4, 0]} className="seo-annotation-anchor">
+      <div ref={annotation} className="seo-annotation" data-step-day={step.day}>
         <span className="seo-step-day">J{step.day}</span>
         <h3>{step.label}</h3>
         <p>{step.client}</p>
         <p className="seo-step-search">{step.seo}</p>
       </div>
-    </Html>
+    </Html>}
   </group>;
 }
 

@@ -48,7 +48,14 @@ export default function SeoGrowth() {
   useEffect(() => {
     const viewport = sceneViewport.current;
     if (!viewport || viewport.scrollWidth <= viewport.clientWidth) return;
-    viewport.scrollTo({ left: (count - 1) / (seoSteps.length - 1) * (viewport.scrollWidth - viewport.clientWidth), behavior: reduced ? "instant" : "smooth" });
+    const timer = window.setTimeout(() => {
+      const label = viewport.querySelector<HTMLElement>(`[data-step-day="${seoSteps[count - 1]?.day}"]`);
+      if (!label) return;
+      const bounds = label.getBoundingClientRect();
+      const frame = viewport.getBoundingClientRect();
+      viewport.scrollTo({ left: viewport.scrollLeft + bounds.left - frame.left + bounds.width / 2 - viewport.clientWidth / 2, behavior: reduced ? "instant" : "smooth" });
+    }, 350);
+    return () => window.clearTimeout(timer);
   }, [count, reduced]);
   return <section ref={section} id="visibilite" className="seo-growth" aria-labelledby="seo-title" data-visible-steps={count}>
     <div className="seo-sticky">
